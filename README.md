@@ -2,8 +2,6 @@
 
 Este proyecto implementa un pipeline completo de Machine Learning para clasificar el sentimiento (positivo o negativo) de tweets, utilizando técnicas clásicas de Procesamiento de Lenguaje Natural (NLP). El modelo final es entrenado, optimizado y guardado para poder realizar predicciones sobre datos nuevos no vistos.
 
-![Nube de Palabras](https://i.imgur.com/3vQhYcT.png)
-
 ---
 
 ## ✨ Características Principales
