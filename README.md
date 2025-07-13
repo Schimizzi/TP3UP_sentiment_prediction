@@ -32,23 +32,23 @@ Arquitectura: Modelo de Transformers (RoBERTa) pre-entrenado y ajustado específ
 Capacidades: Clasificación multiclase (Positivo, Negativo, Neutral), con una mejor comprensión del contexto, el sarcasmo y los matices del lenguaje.
 
 # Estructura del Proyecto
-.
+```
 ├── 📂 data/
-│   ├── training.1600000.processed.noemoticon.csv  # Dataset de entrenamiento
-│   └── testdata.manual.2009.06.14.csv           # Dataset para predicción/comparación
+│   ├── training.1600000.processed.noemoticon.csv   # Dataset de entrenamiento
+│   └── testdata.manual.2009.06.14.csv              # Dataset para predicción/comparación
 ├── 📂 data_processed/
-│   └── split_data_cleaned_1.6kk.joblib          # Datos limpios y divididos (generado)
+│   └── split_data_cleaned_1.6kk.joblib             # Datos limpios y divididos (generado)
 ├── 📂 model_tf_idf/
-│   ├── schimizzi_modelo_1.6kk.joblib            # Modelo de Regresión Logística entrenado (generado)
-│   └── schimizzi_vectorizer_1.6kk.joblib        # Vectorizador TF-IDF ajustado (generado)
+│   ├── schimizzi_modelo_1.6kk.joblib               # Modelo de Regresión Logística entrenado (generado)
+│   └── schimizzi_vectorizer_1.6kk.joblib           # Vectorizador TF-IDF ajustado (generado)
 ├── 📂 predict/
-│   └── nueva_prediccion.xlsx                    # Salida con las predicciones (generado)
+│   └── nueva_prediccion.xlsx                       # Salida con las predicciones (generado)
 ├── 📜 modelo_TF-IDF_sent_v2.3.ipynb                # Notebook para EDA, entrenamiento y evaluación del modelo local.
 ├── 📜 myModel_vs_roBERTa.ipynb                     # Notebook para comparar el modelo local con RoBERTa.
 └── 📜 requirements.txt                             # Dependencias del proyecto.
+```
 
-
-## Instalación y Configuración
+# Instalación y Configuración
 
 Para ejecutar este proyecto, sigue los siguientes pasos:
 
