@@ -1,109 +1,119 @@
-# Análisis de Sentimiento de Tweets con Scikit-Learn y SpaCy
+# Análisis de Sentimiento en Tweets: Modelo Propio vs. RoBERTa
+Este proyecto desarrolla y evalúa un modelo de análisis de sentimiento para tuits en inglés. Se entrena un modelo clásico de Regresión Logística con TF-IDF y se compara su rendimiento con un modelo de vanguardia pre-entrenado (RoBERTa) de Hugging Face, especializado en el análisis de sentimiento de tuits.
 
-Este proyecto implementa un pipeline completo de Machine Learning para clasificar el sentimiento (positivo o negativo) de tweets, utilizando técnicas clásicas de Procesamiento de Lenguaje Natural (NLP). El modelo final es entrenado, optimizado y guardado para poder realizar predicciones sobre datos nuevos no vistos.
+## Descripción del Proyecto
+El objetivo principal es construir una herramienta práctica para el análisis de sentimiento, cubriendo todo el ciclo de vida de un proyecto de Machine Learning:
 
----
+**Análisis Exploratorio de Datos (EDA)**: Se analizan metadatos como la longitud de los tuits, el uso de menciones (@), hashtags (#) y palabras en mayúsculas para entender las características del conjunto de datos.
 
-## ✨ Características Principales
+**Preprocesamiento de Texto**: Se aplica un pipeline de limpieza que incluye la conversión a minúsculas, eliminación de caracteres no alfabéticos, lematización y eliminación de stopwords con la librería spaCy.
 
-- **Manejo de Datos a Gran Escala:** Carga eficiente de un subconjunto aleatorio del dataset de 1.6 millones de tweets de Sentiment140 para un desarrollo ágil.
-- **Pipeline de Preprocesamiento:** Limpieza de texto robusta que incluye conversión a minúsculas, eliminación de caracteres especiales, lematización con **SpaCy** y eliminación de *stop words*.
-- **Vectorización Avanzada:** Uso de **TF-IDF** con **n-gramas** (unigrama y bigrama) para capturar mejor el contexto de las palabras.
-- **Optimización de Modelo:** Búsqueda de los mejores hiperparámetros para un modelo de **Regresión Logística** utilizando `GridSearchCV` para mejorar su rendimiento y reducir el sobreajuste.
-- **Evaluación y Análisis:** Métricas de rendimiento detalladas con `classification_report` y una **Matriz de Confusión** para visualizar los errores del modelo.
-- **Persistencia del Modelo:** El vectorizador y el modelo optimizado se guardan en disco usando `joblib`, permitiendo su reutilización sin necesidad de re-entrenamiento.
-- **Inferencia:** Script para cargar el modelo guardado y realizar predicciones sobre un nuevo archivo CSV, exportando los resultados a un archivo Excel.
+**Entrenamiento y Optimización**: Se entrena un modelo de Regresión Logística sobre vectores TF-IDF (n-gramas de 1 y 2) y se optimizan sus hiperparámetros usando GridSearchCV.
 
----
+**Comparación de Modelos**: El rendimiento del modelo local se compara cualitativamente con las predicciones de RoBERTa (cardiffnlp/twitter-roberta-base-sentiment), un modelo de Transformers especializado en tuits.
 
-## 🛠️ Tecnologías y Librerías Utilizadas
+**Predicción y Exportación**: El modelo entrenado se utiliza para realizar predicciones sobre un conjunto de datos nuevo y los resultados se exportan a un archivo Excel para su fácil revisión.
 
-- Python 3
-- Jupyter Notebook
-- Pandas
-- Scikit-learn
-- SpaCy
-- WordCloud
-- Matplotlib & Seaborn
-- Joblib
-- Openpyxl
+## Modelos Utilizados
+1. **Modelo Local**: Regresión Logística con TF-IDF
+Algoritmo: Regresión Logística.
 
----
+Vectorización: TF-IDF con n-gramas (1, 2) y un máximo de 20,000 características.
 
-## ⚙️ Configuración e Instalación
+Capacidades: Clasificación binaria (Positivo/Negativo).
 
-Para ejecutar este proyecto localmente, sigue estos pasos:
+Entrenamiento: Realizado localmente sobre un conjunto de 1.6 millones de tuits.
 
-1.  **Clonar el repositorio:**
-    ```bash
-    git clone [https://github.com/tu-usuario/tu-repositorio.git](https://github.com/tu-usuario/tu-repositorio.git)
-    cd tu-repositorio
-    ```
+2. **Modelo de Comparación**: RoBERTa para Sentimiento en Tuits
+Modelo: cardiffnlp/twitter-roberta-base-sentiment de Hugging Face.
 
-2.  **Crear un entorno virtual (recomendado):**
-    ```bash
-    python -m venv venv
-    source venv/bin/activate  # En Windows: venv\Scripts\activate
-    ```
+Arquitectura: Modelo de Transformers (RoBERTa) pre-entrenado y ajustado específicamente para el lenguaje de los tuits.
 
-3.  **Instalar las dependencias:**
-    Crea un archivo `requirements.txt` con el siguiente contenido y luego instálalo.
-    ```txt
-    pandas
-    scikit-learn
-    spacy
-    matplotlib
-    seaborn
-    wordcloud
-    joblib
-    openpyxl
-    jupyter
-    ```
-    Ejecuta el comando de instalación:
-    ```bash
-    pip install -r requirements.txt
-    ```
+Capacidades: Clasificación multiclase (Positivo, Negativo, Neutral), con una mejor comprensión del contexto, el sarcasmo y los matices del lenguaje.
 
-4.  **Descargar el modelo de SpaCy:**
-    ```bash
-    python -m spacy download en_core_web_sm
-    ```
-
-5.  **Descargar el Dataset:**
-    -   Descarga el dataset [Sentiment140](http://cs.stanford.edu/people/alecmgo/trainingandtestdata.zip).
-    -   Descomprímelo y coloca el archivo `training.1600000.processed.noemoticon.csv` dentro de una carpeta llamada `data/` en la raíz del proyecto.
-
----
-
-## 🚀 Uso del Proyecto
-
-1.  **Ejecutar el Notebook:** Abre y ejecuta el archivo `NLP_TP3_v1.ipynb` en un entorno de Jupyter.
-2.  **Entrenamiento y Guardado:** Al ejecutar todas las celdas, el notebook realizará el preprocesamiento, entrenará el modelo con `GridSearchCV` y guardará los artefactos finales (`vectorizer` y `modelo`) en la carpeta `model/`.
-3.  **Realizar Predicciones:** La última celda del notebook está configurada para leer un archivo CSV de prueba (ej. `data/testdata.manual.2009.06.14.csv`), realizar predicciones de sentimiento y guardar los resultados en un archivo llamado `predicciones_muestreo.xlsx`.
-
----
-
-## 📂 Estructura del Proyecto
-
-```
+# Estructura del Proyecto
 .
-├── data/
-│   ├── training.1600000.processed.noemoticon.csv
-│   └── testdata.manual.2009.06.14.csv
-├── model/
-│   ├── schimizzi_modelo_final.joblib
-│   └── schimizzi_vectorizer_final.joblib
-├── NLP_TP3_v1.ipynb
-├── predicciones_muestreo.xlsx
-├── requirements.txt
-└── README.md
+├── 📂 data/
+│   ├── training.1600000.processed.noemoticon.csv  # Dataset de entrenamiento
+│   └── testdata.manual.2009.06.14.csv           # Dataset para predicción/comparación
+├── 📂 data_processed/
+│   └── split_data_cleaned_1.6kk.joblib          # Datos limpios y divididos (generado)
+├── 📂 model_tf_idf/
+│   ├── schimizzi_modelo_1.6kk.joblib            # Modelo de Regresión Logística entrenado (generado)
+│   └── schimizzi_vectorizer_1.6kk.joblib        # Vectorizador TF-IDF ajustado (generado)
+├── 📂 predict/
+│   └── nueva_prediccion.xlsx                    # Salida con las predicciones (generado)
+├── 📜 modelo_TF-IDF_sent_v2.3.ipynb                # Notebook para EDA, entrenamiento y evaluación del modelo local.
+├── 📜 myModel_vs_roBERTa.ipynb                     # Notebook para comparar el modelo local con RoBERTa.
+└── 📜 requirements.txt                             # Dependencias del proyecto.
+
+
+## Instalación y Configuración
+
+Para ejecutar este proyecto, sigue los siguientes pasos:
+
+Clona el repositorio:
+```Bash
+git clone https://github.com/Schimizzi/TP3UP_sentiment_prediction.git
+cd TP3.1
 ```
 
----
+Crea un entorno virtual (recomendado):
+```Bash
+python -m venv venv
+source venv/bin/activate  # En Windows: venv\Scripts\activate
+```
 
-## 📈 Posibles Mejoras a Futuro
+Instala las dependencias usando el archivo requirements.txt:
+```Bash
+pip install -r requirements.txt
+```
 
--   **Word Embeddings:** Implementar técnicas como Word2Vec o GloVe para capturar el significado semántico de las palabras.
--   **Modelos de Deep Learning:** Experimentar con redes neuronales recurrentes (LSTM, GRU) para mejorar la comprensión de secuencias de texto.
--   **Modelos de Transformers:** Utilizar modelos pre-entrenados como BERT para obtener un rendimiento de última generación en la clasificación de sentimientos.
--   **Despliegue:** Crear una API (por ejemplo, con Flask o FastAPI) para servir el modelo y permitir predicciones en tiempo real.
+Descarga el modelo de lenguaje de spaCy: Este modelo es necesario para la limpieza y lematización del texto.
+```Bash
+python -m spacy download en_core_web_sm
+```
+
+# Uso del Proyecto
+
+El proyecto está dividido en dos notebooks principales:
+
+## 1. **Entrenamiento del Modelo Local** (modelo_TF-IDF_sent_v2.3.ipynb)
+
+Este notebook te guiará a través de:
+
+La carga y el análisis exploratorio del dataset de 1.6 millones de tuits.
+
+El proceso de limpieza y preprocesamiento de texto.
+
+La vectorización TF-IDF.
+
+El entrenamiento del modelo de Regresión Logística con GridSearchCV para encontrar los mejores parámetros.
+
+La evaluación del modelo final con reportes de clasificación y una matriz de confusión.
+
+El guardado del modelo y el vectorizador en la carpeta model_tf_idf/.
+
+## 2. **Comparación y Predicción** (myModel_vs_roBERTa.ipynb)
+Este notebook se enfoca en:
+
+Cargar el modelo local previamente guardado.
+
+Cargar el modelo RoBERTa de Hugging Face.
+
+Realizar predicciones sobre un conjunto tuits de prueba con ambos modelos.
+
+Mostrar una tabla comparativa para analizar las diferencias en las predicciones.
+
+Guardar las predicciones del modelo local sobre nuevos datos en un archivo Excel en la carpeta predict/.
+
+# Análisis de Resultados
+La comparación entre el modelo local y RoBERTa arrojó las siguientes conclusiones:
+
+Manejo del Contexto: RoBERTa, al ser un Transformer, es superior en la comprensión de matices, sarcasmo y el contexto general de un tuit.
+
+Clasificación de Neutralidad: El modelo local solo clasifica en "Positivo" y "Negativo", mientras que RoBERTa puede identificar tuits "Neutrales", lo que le otorga mayor precisión en textos sin una carga sentimental clara.
+
+Confianza en la Predicción: El modelo de Hugging Face proporciona un puntaje de confianza, que tiende a ser más bajo en textos ambiguos, ofreciendo una capa adicional de interpretabilidad.
+
+**A pesar de las ventajas del modelo pre-entrenado, el modelo de Regresión Logística local logró un rendimiento notable y satisfactorio, demostrando ser una solución eficaz y bien construida.**
