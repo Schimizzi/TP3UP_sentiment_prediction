@@ -55,13 +55,13 @@ Para ejecutar este proyecto, sigue los siguientes pasos:
 Clona el repositorio:
 ```Bash
 git clone https://github.com/Schimizzi/TP3UP_sentiment_prediction.git
-cd TP3.1
+cd TP3UP_sentiment_prediction
 ```
 
-Crea un entorno virtual (recomendado):
+Crea un entorno virtual (recomendado para Windows):
 ```Bash
 python -m venv venv
-source venv/bin/activate  # En Windows: venv\Scripts\activate
+.\venv\Scripts\activate
 ```
 
 Instala las dependencias usando el archivo requirements.txt:
